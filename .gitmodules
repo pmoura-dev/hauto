@@ -1,3 +1,0 @@
-[submodule "device-registry"]
-	path = device-registry
-	url = git@github-pmoura.dev:pmoura-dev/device-registry.git
