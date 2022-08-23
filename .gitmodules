@@ -1,3 +1,6 @@
-[submodule "device-registry"]
-	path = device-registry
-	url = https://github.com/pmoura-dev/device-registry.git
+[submodule "hauto.device-registry"]
+	path = hauto.device-registry
+	url = https://github.com/pmoura-dev/hauto.device-registry.git
+[submodule "hauto.database"]
+	path = hauto.database
+	url = https://github.com/pmoura-dev/hauto.database.git
