@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  device-registry:
+    image: "ghcr.io/pmoura-dev/hauto.device-registry:1.0"
+    container_name: hauto.device-registry
+    ports:
+      - "8080:8080"
+    env_file:
+      - device-registry.env
+    networks:
+      - hauto
+
+
+networks:
+  hauto:
