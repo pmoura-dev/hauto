@@ -28,6 +28,18 @@ services:
     environment:
       - DB_HOST=hauto.timescale
       - RABBITMQ_HOST=hauto.rabbitmq
+      - APP_PORT=${TRANSACTION_SERVICE_PORT}
+    networks:
+      - hauto
+  
+  device-gateway:
+    image: "ghcr.io/pmoura-dev/hauto.device-gateway:0.1"
+    container_name: hauto.device-gateway
+    restart: always
+    environment:
+      - RABBITMQ_HOST=hauto.rabbitmq
+      - TRANSACTION_SERVICE_HOST=hauto.transaction-service
+      - TRANSACTION_SERVICE_PORT=${TRANSACTION_SERVICE_PORT}
     networks:
       - hauto
 
