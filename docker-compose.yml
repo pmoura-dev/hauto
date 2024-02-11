@@ -24,8 +24,6 @@ services:
     image: "ghcr.io/pmoura-dev/hauto.transaction-service:0.1"
     container_name: hauto.transaction-service
     restart: always
-    ports:
-      - ${TRANSACTION_SERVICE_PORT}:${TRANSACTION_SERVICE_PORT}
     environment:
       - DB_HOST=hauto.timescale
       - RABBITMQ_HOST=hauto.rabbitmq
@@ -37,6 +35,19 @@ services:
     image: "ghcr.io/pmoura-dev/hauto.device-gateway:0.1"
     container_name: hauto.device-gateway
     restart: always
+    environment:
+      - RABBITMQ_HOST=hauto.rabbitmq
+      - TRANSACTION_SERVICE_HOST=hauto.transaction-service
+      - TRANSACTION_SERVICE_PORT=${TRANSACTION_SERVICE_PORT}
+    networks:
+      - hauto
+
+  api-gateway:
+    image: "ghcr.io/pmoura-dev/hauto.api-gateway:0.1"
+    container_name: hauto.api-gateway
+    restart: always
+    ports:
+      - ${API_GATEWAY_PORT}:${API_GATEWAY_PORT}
     environment:
       - RABBITMQ_HOST=hauto.rabbitmq
       - TRANSACTION_SERVICE_HOST=hauto.transaction-service
