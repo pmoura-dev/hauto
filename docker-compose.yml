@@ -1,28 +1,35 @@
 version: '3'
 
 services:
-
-  database:
-    image: "ghcr.io/pmoura-dev/hauto.database:1.0"
-    container_name: hauto.database
-    env_file:
-      - database.env
+  timescale:
+    image: "ghcr.io/pmoura-dev/hauto.timescale:0.1"
+    container_name: hauto.timescale
+    restart: always
     ports:
-      - "5432:5432"
+      - ${TIMESCALE_PORT}:${TIMESCALE_PORT}
     networks:
       - hauto
-
-  device-registry:
-    image: "ghcr.io/pmoura-dev/hauto.device-registry:1.0"
-    container_name: hauto.device-registry
-    env_file:
-      - device-registry.env
+  
+  rabbitmq:
+    image: "ghcr.io/pmoura-dev/hauto.rabbitmq:0.1"
+    container_name: hauto.rabbitmq
+    restart: always
     ports:
-      - "8080:8080"
+      - ${RABBITMQ_MANAGEMENT_PORT}:${RABBITMQ_MANAGEMENT_PORT}
     networks:
       - hauto
-    links:
-      - database
+  
+  transaction-service:
+    image: "ghcr.io/pmoura-dev/hauto.transaction-service:0.1"
+    container_name: hauto.transaction-service
+    restart: always
+    ports:
+      - ${TRANSACTION_SERVICE_PORT}:${TRANSACTION_SERVICE_PORT}
+    environment:
+      - DB_HOST=hauto.timescale
+      - RABBITMQ_HOST=hauto.rabbitmq
+    networks:
+      - hauto
 
 networks:
   hauto:
