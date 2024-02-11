@@ -60,7 +60,7 @@ services:
     container_name: hauto.bridges.hisense-ac
     restart: always
     volumes:
-      - options.json:/config/options.json
+      - ./options.json:/config/options.json:ro
     networks:
       - hauto
 
