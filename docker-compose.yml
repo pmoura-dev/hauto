@@ -16,6 +16,7 @@ services:
     restart: always
     ports:
       - ${RABBITMQ_MANAGEMENT_PORT}:${RABBITMQ_MANAGEMENT_PORT}
+      - ${RABBITMQ_MQTT_PORT}:${RABBITMQ_MQTT_PORT}
     networks:
       - hauto
   
