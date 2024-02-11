@@ -59,7 +59,8 @@ services:
     image: "ghcr.io/pmoura-dev/hauto.bridges.hisense-ac:0.1"
     container_name: hauto.bridges.hisense-ac
     restart: always
-    command: "$(<options.json)"
+    volumes:
+      - options.json:/config/options.json
     networks:
       - hauto
 
