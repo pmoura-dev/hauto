@@ -61,8 +61,7 @@ services:
     restart: always
     volumes:
       - ./options.json:/config/options.json:ro
-    networks:
-      - hauto
+    network_mode: host
 
 networks:
   hauto:
