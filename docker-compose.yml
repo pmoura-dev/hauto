@@ -62,6 +62,13 @@ services:
     volumes:
       - ./options.json:/config/options.json:ro
     network_mode: host
+  
+  plugin_hap:
+    image: "ghcr.io/pmoura-dev/hauto.plugins.hap:0.1"
+    container_name: hauto.plugins.hap
+    restart: always
+    networks:
+      - hauto
 
 networks:
   hauto:
