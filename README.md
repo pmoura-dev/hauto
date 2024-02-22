@@ -2,6 +2,33 @@
 
 Hauto is a simple home automation system.
 
+## Installation
+> [!IMPORTANT]
+> To install HAUTO, you must first have [Docker](https://www.docker.com/get-started/) installed.
+
+### 1. Clone the repository
+```shell
+git clone https://github.com/pmoura-dev/hauto
+```
+
+### 2. Run
+Inside the downloaded folder, use `docker-compose` to start the system:
+```shell
+docker-compose up -d
+```
+
+## Usage
+
+By default, the application will expose a HTTP API and a WebSocket channel on port 8000.
+
+For example, we can fetch the list of devices existent in our system by making the following request:
+```
+curl http://localhost:8000/devices
+```
+
+> [!NOTE]
+> You can check the full API documentation on ```http://localhost:8000/docs```
+
 ## Architecture
 
 HAUTO application core is composed currently by 4 components:
