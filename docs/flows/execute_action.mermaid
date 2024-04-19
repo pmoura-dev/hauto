@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant Client
+    
+    box Core
+    participant API as API Gateway
+    participant DG as Device Gateway
+    end
+
+    participant Device
+
+    Client->>API: POST /devices/{id}/actions/{action}
+    
+    API-->>DG: action.requested
+
+    API->>Client: 202 Accepted
+    
+    DG-->>Device: MQTT message
+
+    alt Delivery was successful
+        DG-->>API: action.successful
+    else Delivery failed
+        DG-->>API: action.failed
+    end
+
+    opt callback_url was passed
+        API->>Client: POST {callback_url}
+    end
+    
+

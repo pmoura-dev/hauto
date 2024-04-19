@@ -1,0 +1,32 @@
+sequenceDiagram
+    participant Device
+    
+    box Core
+    participant DG as Device Gateway
+    participant DB as Database
+    participant API as API Gateway
+    end
+
+    participant Client
+
+    Device-->>DG: State MQTT message
+
+    activate DG
+    DG->>DG: Process state
+    deactivate DG
+
+    par
+        DG-->>DB: state.updated
+        activate DB
+        DB->>DB: Update state
+        deactivate DB
+    and
+        DG-->>API: state.updated
+        opt Client has enabled notifications
+            activate API
+            API->>API: Get client notification_url
+            deactivate API
+            API->>Client: POST /{nofitication_url}
+        end
+    end
+

@@ -19,7 +19,7 @@ docker-compose up -d
 
 ## Usage
 
-By default, the application will expose a HTTP API and a WebSocket channel on port 8000.
+By default, the application will expose a HTTP API on port 8000.
 
 For example, we can fetch the list of devices existent in our system by making the following request:
 ```
@@ -31,9 +31,19 @@ curl http://localhost:8000/devices
 
 ## Architecture
 
+### Core
+
+![Core Architecture](docs/high_level_arch.png)
+
 HAUTO application core is composed currently by 4 components:
 
 - **RabbitMQ** - A message broker that also acts as a MQTT broker. Responsible for delivering messages between services, and also communicate with the IOT devices.
-- **API Gateway** - The API Gateway exposes the system's functionality to external applications. It receives requests via HTTP from the outside world and routes them to the appropriate microservices. It also provides a Websocket channel to that enables clients to listen for real time system changes.
+- **API Gateway** - The API Gateway exposes the system's functionality to external applications. It receives requests via HTTP from the outside world and routes them to the appropriate microservices.
 - **TimescaleDB** - The systems's database.
 - **Microservices** - The multiple microservices that handle the different functionalities of the system.
+
+### Bridges
+
+HAUTO bridges are small services that are used for providing MQTT communication to devices that don't have it originally.
+
+![Bridges](docs/bridges.png)
